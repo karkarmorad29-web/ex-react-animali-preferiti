@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>I miei animali Preferiti</title>
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
     <link rel="stylesheet" href="style.css">
 
     <script type="text/babel">
@@ -20,10 +18,28 @@
                     <figure>
                         <img src="https://picsum.photos/400/300" alt="Immagine Casuale" />
                     </figure>
-                    <div className="lista-animali"></div>
+                    <ListaAnimaleComponent />
                 </main>
             );
         };
+
+        const ListaAnimaleComponent = () => {
+            const animalsChoices = ["Cane", "Gatto", "Pappagallo", "Cavallo", "Panda"];
+            return (
+                <div className="lista-animali">
+                    <details>
+                        <summary>Animali</summary>
+                        <ul>
+                            <li>Cane</li>
+                            <li>Gatto</li>
+                            <li>pappagallo</li>
+                            <li>Cavallo</li>
+                            <li>Panda</li>
+                        </ul>
+                    </details>
+                </div>
+            )
+        }
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<ReactApp />);
@@ -32,6 +48,9 @@
 
 <body>
     <div id="root"></div>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <footer>
         <p>Creato con amore da... un collega sbadato! 🐾</p>
     </footer>
