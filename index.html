@@ -5,10 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>I miei animali Preferiti</title>
-
     <link rel="stylesheet" href="style.css">
-
-
 </head>
 
 <body>
@@ -22,7 +19,30 @@
     <script type="text/babel">
         const { useState } = React;
 
+        function Modal({
+            title,
+            content,
+            show = false,
+            onClose = () => { },
+            onConfirm = () => { },
+        }) {
+            return show && ReactDOM.createPortal(
+                <div className="modal-container">
+                    <div className="modal">
+                        <h2>{title}</h2>
+                        <p>{content}</p>
+                        <button onClick={onClose}>Annulla</button>
+                        <button onClick={onConfirm}>Conferma</button>
+
+                    </div>
+                </div>,
+                document.body
+            )
+        }
+
         const ReactApp = () => {
+
+
             return (
                 <main>
                     <h1>I miei animali Preferiti</h1>
@@ -35,6 +55,8 @@
         };
         const animalsChoices = ["Cane", "Gatto", "Pappagallo", "Cavallo", "Panda"];
         const ListaAnimaleComponent = () => {
+            const [show, setshow] = useState(false);
+            const [inputValue, setInputValue] = useState("");
             const [animals, setAnimals] = React.useState([]);
             const pescaAnimale = () => {
                 const indiceCasuale = Math.floor(Math.random() * animalsChoices.length);
@@ -45,13 +67,31 @@
             return (
 
                 <div className="lista-animali">
-                    <button onClick={pescaAnimale}>Aggiungi Animale</button>
+                    <button onClick={() => setshow(true)}>Aggiungi Animale</button>
                     <details>
                         <summary>Animali</summary>
                         <ul>
                             {animals.map((animal, index) => (<li key={index}>{animal}</li>))}
                         </ul>
                     </details>
+                    <Modal
+                        title="Il tuo Animale preferito"
+                        content={<input
+                            value={inputValue} onChange={(e) => setInputValue(e.target.value)}
+                        />
+                        }
+                        show={show}
+                        onClose={() => {
+                            setInputValue("");
+                            setshow(false);
+                        }}
+
+                        onConfirm={() => {
+                            setAnimals([...animals, inputValue]);
+                            setInputValue("");
+                            setshow(false);
+                        }}
+                    />
                 </div>
             )
         }
@@ -59,19 +99,6 @@
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<ReactApp />);
     </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     <footer>
